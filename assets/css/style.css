@@ -1,0 +1,514 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #141414;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background-color: #1f1f1f;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: #e50914; /* Vermelho Netflix */
+}
+
+.header-nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header-nav a:hover {
+    background-color: #333;
+    color: #e50914;
+}
+
+.header-nav a.active {
+    background-color: #e50914;
+    color: #fff;
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav .logout-btn {
+    padding: 8px 16px;
+    background-color: #e50914;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav .logout-btn:hover {
+    background-color: #f40612;
+}
+
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #1f1f1f;
+    position: fixed;
+    height: calc(100% - 60px);
+    top: 60px;
+    padding: 20px;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar ul li a:hover {
+    color: #e50914;
+}
+
+.sidebar ul li a.active {
+    color: #e50914;
+    font-weight: bold;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 270px;
+    margin-top: 80px;
+    padding: 20px;
+    flex: 1;
+}
+
+/* Catalog */
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.content-item {
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.content-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.content-item h3 {
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.content-item a {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #e50914;
+    color: #fff;
+    text-decoration: none;
+}
+
+.content-item a:hover {
+    background-color: #f40612;
+}
+
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container form {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-container input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+}
+
+.login-container input::placeholder {
+    color: #aaa;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e50914;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #f40612;
+}
+
+/* Adicionar após .login-container button:hover */
+/* Substituir os estilos anteriores de .remember-me */
+.remember-me {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    margin: 10px 0;
+    font-size: 14px;
+    gap: 8px; /* Espaço entre o checkbox e o texto */
+}
+
+.remember-me input {
+    width: 16px;
+    height: 16px;
+    background-color: #333;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    margin: 0; /* Remove margens padrão */
+    flex-shrink: 0; /* Evita que o checkbox seja comprimido */
+}
+
+.remember-me input:checked {
+    background-color: #e50914;
+    border-color: #e50914;
+}
+
+.remember-me input:focus {
+    outline: 2px solid #e50914;
+    outline-offset: 2px;
+}
+
+.remember-me label {
+    cursor: pointer;
+    user-select: none; /* Impede seleção do texto */
+}
+
+.login-container .error {
+    color: #e50914;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Video Player */
+video {
+    width: 100%;
+    height: 75%;
+    max-width: 100%;
+}
+
+/* Video.js Player */
+.video-js {
+    width: 100%;
+    max-width: 850px; /* Mantido para telas grandes no modo normal */
+    max-height: 600px; /* Mantido para o modo normal */
+    margin: 0 auto 20px;
+    aspect-ratio: 16 / 9; /* Proporção padrão no modo normal */
+    background-color: #000; /* Fundo preto para bordas */
+}
+
+.vjs-default-skin {
+    background-color: #000;
+}
+
+.vjs-control-bar {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.vjs-play-progress {
+    background-color: #e50914;
+}
+
+.vjs-volume-level {
+    background-color: #e50914;
+}
+
+/* Estilos para o modo tela cheia */
+.video-js.vjs-fullscreen {
+    max-width: 100vw !important; /* Ocupa toda a largura da tela */
+    max-height: 100vh !important; /* Ocupa toda a altura da tela */
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important; /* Remove margens */
+    padding: 0 !important; /* Remove padding */
+    aspect-ratio: unset !important; /* Remove proporção fixa para se adaptar ao vídeo */
+}
+
+/* Ajuste para telas menores no modo normal */
+@media (max-width: 768px) {
+    .video-js {
+        max-width: 100%; /* Ocupa toda a largura disponível */
+        max-height: 400px; /* Reduz altura em telas menores */
+        aspect-ratio: 16 / 9;
+    }
+}
+
+/* Series Page */
+#season-select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#season-select:focus {
+    outline: none;
+    background-color: #444;
+}
+
+#episodes {
+    margin-top: 20px;
+}
+
+#episodes ul {
+    list-style: none;
+}
+
+#episodes li {
+    margin: 10px 0;
+}
+
+#episodes a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#episodes a:hover {
+    color: #e50914;
+}
+
+/* Footer */
+.footer {
+    background-color: #1f1f1f;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .logo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .header-nav {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .header-nav a {
+        display: block;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .nav {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .nav .logout-btn {
+        padding: 10px 20px;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 60px;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-top: 120px;
+    }
+
+    .footer {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .video-js {
+        max-width: 100%;
+    }
+}
+
+.sidebar ul li a.active {
+    color: #e50914;
+    font-weight: bold;
+}
+
+#player {
+    height: 60%;
+    width: 60%;
+}
+
+/* Adicionar após .nav .logout-btn:hover */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.search-form input {
+    background-color: transparent;
+    border: none;
+    padding: 8px 12px;
+    color: #fff;
+    font-size: 14px;
+    width: 200px;
+}
+
+.search-form input::placeholder {
+    color: #aaa;
+}
+
+.search-form input:focus {
+    outline: none;
+    background-color: #444;
+}
+
+.search-btn {
+    background-color: #e50914;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.search-btn:hover {
+    background-color: #f40612;
+}
+
+/* Ajustar responsividade */
+@media (max-width: 768px) {
+    .search-container {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .search-form {
+        width: 100%;
+    }
+    .search-form input {
+        width: calc(100% - 36px); /* Ajustar para o botão */
+    }
+}
