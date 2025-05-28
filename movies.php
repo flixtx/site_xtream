@@ -2,6 +2,10 @@
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
 
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
+
 if (!is_logged_in()) {
     header('Location: login.php');
     exit;
