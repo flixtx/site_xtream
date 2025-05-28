@@ -7,14 +7,17 @@ RUN apt-get update && apt-get install -y \
     sqlite3 \
     && docker-php-ext-install pdo pdo_sqlite
 
+# Clona o site
 RUN git clone https://github.com/zoreu/site_xtream.git /tmp/site_xtream && \
     rm -rf /var/www/html/* && \
     mv /tmp/site_xtream/* /var/www/html/
 
+# Remove configurações desnecessárias do nginx
 RUN sed -i '/^user/d' /etc/nginx/nginx.conf && \
     sed -i '/access_log/d' /etc/nginx/nginx.conf && \
     sed -i '/error_log/d' /etc/nginx/nginx.conf
 
+# Cria diretórios temporários e de log
 RUN mkdir -p /var/www/html/nginx_temp/body \
              /var/www/html/nginx_temp/proxy \
              /var/www/html/nginx_temp/fastcgi \
@@ -23,6 +26,7 @@ RUN mkdir -p /var/www/html/nginx_temp/body \
              /var/www/html/nginx_logs && \
     chmod -R 777 /var/www/html/nginx_temp /var/www/html/nginx_logs
 
+# Configura caminhos dos logs e temp dirs
 RUN sed -i '/http {/a \
     client_body_temp_path /var/www/html/nginx_temp/body;\
     proxy_temp_path /var/www/html/nginx_temp/proxy;\
@@ -32,6 +36,7 @@ RUN sed -i '/http {/a \
     access_log /var/www/html/nginx_logs/access.log;\
     error_log /var/www/html/nginx_logs/error.log warn;' /etc/nginx/nginx.conf
 
+# Configuração do servidor
 RUN printf 'server {\n\
     listen 7860;\n\
     server_name localhost;\n\
@@ -49,17 +54,25 @@ RUN printf 'server {\n\
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;\n\
     }\n\
 \n\
+    # Negar acesso aos diretórios sensíveis e arquivos confidenciais\n\
+    location ^~ /nginx_temp/ {\n\
+        deny all;\n\
+    }\n\
+    location ^~ /nginx_logs/ {\n\
+        deny all;\n\
+    }\n\
+    location ~* \\.(pid|conf)$ {\n\
+        deny all;\n\
+    }\n\
     location ~ /\\.ht {\n\
         deny all;\n\
     }\n\
 }\n' > /etc/nginx/sites-available/default
 
-
-# Corrigir permissão e diretório /run para nginx pid
+# Corrige diretório /run e PID
 RUN mkdir -p /run && chmod 755 /run
 RUN sed -i 's|^pid .*|pid /var/www/html/nginx.pid;|' /etc/nginx/nginx.conf || echo 'pid /var/www/html/nginx.pid;' >> /etc/nginx/nginx.conf
 
 EXPOSE 7860
 
 CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
-#CMD sh -c "ps aux | grep php-fpm; cat /usr/local/etc/php-fpm.d/www.conf | grep listen; exec php-fpm & exec nginx -g 'daemon off;'"
