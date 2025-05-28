@@ -20,7 +20,6 @@ $content = [];
 // Determina as categorias e o conteúdo com base na seção
 if ($section === 'live') {
     $categories = xtream_api_call('get_live_categories') ?? [];
-    // Se não houver category_id, usa a primeira categoria
     $category_id = $category_id ?: ($categories[0]['category_id'] ?? null);
     $content = $category_id ? get_live_streams($category_id) : [];
 } elseif ($section === 'movies') {
@@ -53,7 +52,15 @@ if ($section === 'live') {
             <div class="catalog">
                 <?php foreach ($content as $item): ?>
                     <div class="content-item">
-                        <img src="<?php echo htmlspecialchars("https://da5f663b4690-proxyimage.baby-beamup.club/proxy-image/?url=".$item['stream_icon'] ?? $item['cover'] ?? 'assets/images/placeholder.png'); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
+                        <?php
+                            $image_url = 'assets/images/placeholder.png';
+                            if (!empty($item['stream_icon'])) {
+                                $image_url = 'https://da5f663b4690-proxyimage.baby-beamup.club/proxy-image/?url=' . urlencode($item['stream_icon']);
+                            } elseif (!empty($item['cover'])) {
+                                $image_url = 'https://da5f663b4690-proxyimage.baby-beamup.club/proxy-image/?url=' . urlencode($item['cover']);
+                            }
+                        ?>
+                        <img src="<?php echo htmlspecialchars($image_url); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
                         <h3><?php echo htmlspecialchars($item['name']); ?></h3>
                         <?php if ($section === 'live'): ?>
                             <a href="live.php?stream_id=<?php echo $item['stream_id']; ?>&section=<?php echo $section; ?>&name=<?php echo htmlspecialchars($item['name']); ?>">Assistir</a>
