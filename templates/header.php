@@ -7,7 +7,7 @@ if (!is_logged_in()) {
     exit;
 }
 
-$section = filter_var($_GET['section'] ?? 'live', FILTER_SANITIZE_STRING);
+$section = filter_var($_GET['section'] ?? 'live', FILTER_UNSAFE_RAW);
 ?>
 <header class="header">
     <div class="logo">
