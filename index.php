@@ -53,7 +53,7 @@ if ($section === 'live') {
             <div class="catalog">
                 <?php foreach ($content as $item): ?>
                     <div class="content-item">
-                        <img src="<?php echo htmlspecialchars($item['stream_icon'] ?? $item['cover'] ?? 'assets/images/placeholder.png'); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
+                        <img src="<?php echo htmlspecialchars("https://da5f663b4690-proxyimage.baby-beamup.club/proxy-image/?url=".$item['stream_icon'] ?? $item['cover'] ?? 'assets/images/placeholder.png'); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
                         <h3><?php echo htmlspecialchars($item['name']); ?></h3>
                         <?php if ($section === 'live'): ?>
                             <a href="live.php?stream_id=<?php echo $item['stream_id']; ?>&section=<?php echo $section; ?>&name=<?php echo htmlspecialchars($item['name']); ?>">Assistir</a>
