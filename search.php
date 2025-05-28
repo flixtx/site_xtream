@@ -11,7 +11,7 @@ if (!is_logged_in()) {
     exit;
 }
 
-$query = filter_var($_GET['query'] ?? '', FILTER_SANITIZE_STRING);
+$query = filter_var($_GET['query'] ?? '', FILTER_UNSAFE_RAW);
 $results = [];
 
 if ($query) {
