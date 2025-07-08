@@ -18,7 +18,7 @@ if (!$stream_id) {
 }
 
 // Ajustar formato da URL do stream (verifique com seu servidor)
-$stream_url = "https://zoreu-proxy.hf.space/proxy/hls/manifest.m3u8?d=" . rtrim($_SESSION['user']['host'], '/') . "/" . urlencode($_SESSION['user']['username']) . "/" . urlencode($_SESSION['user']['password']) . "/" . $stream_id . ".m3u8&api_password=abracadabra";
+$stream_url = "https://bsweb1-flixhls.hf.space/proxy/hls/manifest.m3u8?d=" . rtrim($_SESSION['user']['host'], '/') . "/" . urlencode($_SESSION['user']['username']) . "/" . urlencode($_SESSION['user']['password']) . "/" . $stream_id . ".m3u8&api_password=04502456";
 error_log("Stream URL: $stream_url");
 
 // Obtém categorias para o sidebar
