@@ -18,7 +18,7 @@ if (!$stream_id) {
 }
 
 $stream = xtream_api_call('get_vod_info', ['vod_id' => $stream_id]);
-$stream_url = "https://zoreu-proxy.hf.space/proxy/stream?d=". rtrim($_SESSION['user']['host'], '/') . "/movie/" . urlencode($_SESSION['user']['username']) . "/" . urlencode($_SESSION['user']['password']) . "/" . $stream_id . ".mp4&api_password=abracadabra";
+$stream_url = "https://bsweb1-flixhls.hf.space/proxy/stream?d=". rtrim($_SESSION['user']['host'], '/') . "/movie/" . urlencode($_SESSION['user']['username']) . "/" . urlencode($_SESSION['user']['password']) . "/" . $stream_id . ".mp4&api_password=04502456";
 error_log("Movie Stream URL: $stream_url");
 
 // Obtém categorias para o sidebar
