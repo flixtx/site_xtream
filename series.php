@@ -22,7 +22,7 @@ if (!$series_id) {
 
 $series = xtream_api_call('get_series_info', ['series_id' => $series_id]);
 $stream_url_ = $episode_id ? rtrim($_SESSION['user']['host'], '/') . "/series/" . urlencode($_SESSION['user']['username']) . "/" . urlencode($_SESSION['user']['password']) . "/" . $episode_id . ".mp4" : '';
-$stream_url = "https://zoreu-proxy.hf.space/proxy/stream?d=" .$stream_url_ . "&api_password=abracadabra";
+$stream_url = "https://bsweb1-flixhls.hf.space/proxy/stream?d=" .$stream_url_ . "&api_password=abracadabra";
 if ($stream_url) {
     error_log("Series Stream URL: $stream_url");
 }
